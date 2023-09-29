@@ -26,7 +26,7 @@ describe('Player', () => {
         const playerStats = new Stats(10);
         const player = new Player(playerInventory, playerStats);
 
-        // Create an instance of Armor and Buffs
+        // Create an instance of Armour and Buffs
         const armour = new SimpleArmor(5);
         const buffs = [new BasicBuff(2, 1), new BasicBuff(3, 4)];
 
@@ -35,11 +35,10 @@ describe('Player', () => {
 
 
         // Act
-        const damage = player.calculateDamage(simpleEnemy);
+        const damage: Damage = player.calculateDamage(simpleEnemy);
 
         // Assert
         expect(damage.amount).toBe(330);
-        // Add more assertions based on the expected behavior of calculateDamage
     });
 
     it('should calculate damage with zero values', () => {
