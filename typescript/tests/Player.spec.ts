@@ -3,84 +3,45 @@ import { Inventory } from '../src/Inventory';
 import { Stats } from '../src/Stats';
 import { Damage } from '../src/Damage';
 import { SimpleEnemy } from '../src/SimpleEnemy';
+import { BasicItem } from '../src/BasicItem';
+import { Equipment } from '../src/Equipment';
+import { SimpleArmor } from '../src/SimpleArmor';
+import { BasicBuff } from '../src/BasicBuff';
 
 describe('Player', () => {
-    describe('calculateDamage', () => {
-        it('should calculate damage for a player attacking another player', () => {
-            // Arrange
-            const playerInventory = new Inventory({
-                leftHand: { damageModifier: 1 },
-                rightHand: { damageModifier: 1 },
-                head: { damageModifier: 0.5 },
-                feet: { damageModifier: 0.5 },
-                chest: { damageModifier: 0.5 },
-            });
-            const playerStats = new Stats(10);
-            const otherPlayerInventory = new Inventory({
-                leftHand: { damageModifier: 0.5 },
-                rightHand: { damageModifier: 0.5 },
-                head: { damageModifier: 0.5 },
-                feet: { damageModifier: 0.5 },
-                chest: { damageModifier: 0.5 },
-            });
-            const otherPlayerStats = new Stats(5);
-            const player = new Player(playerInventory, playerStats);
-            const otherPlayer = new Player(otherPlayerInventory, otherPlayerStats);
+    it('should calculate damage for a player attacking a simple enemy', () => {
 
-            // Act
-            const damage = player.calculateDamage(otherPlayer);
+        // Create an equipment
+        const equipment = new Equipment(
+            new BasicItem('Item 1', 10, 1),      // Left hand item: Base damage: 10, Damage modifier: 1
+            new BasicItem('Item 2', 15, 0.5),    // Right hand item: Base damage: 15, Damage modifier: 0.5
+            new BasicItem('Item 3', 5, 2),       // Head item: Base damage: 5, Damage modifier: 2
+            new BasicItem('Item 4', 8, 1.5),     // Feet item: Base damage: 8, Damage modifier: 1.5
+            new BasicItem('Item 5', 12, 1.2)
+        );
 
-            // Assert
-            expect(damage).toBeInstanceOf(Damage);
-            // Add more assertions based on the expected behavior of calculateDamage
-        });
+        // Create a sample inventory
+        const playerInventory = new Inventory(equipment);
 
-        it('should calculate damage for a player attacking a simple enemy', () => {
-            // Arrange
-            const playerInventory = new Inventory({
-                leftHand: { damageModifier: 1 },
-                rightHand: { damageModifier: 1 },
-                head: { damageModifier: 0.5 },
-                feet: { damageModifier: 0.5 },
-                chest: { damageModifier: 0.5 },
-            });
-            const playerStats = new Stats(10);
-            const simpleEnemy = new SimpleEnemy({
-                armor: { damageSoak: 5 },
-                buffs: [
-                    { soakModifier: 1 },
-                    { soakModifier: 0.5 },
-                ],
-            });
-            const player = new Player(playerInventory, playerStats);
+        const playerStats = new Stats(10);
+        const player = new Player(playerInventory, playerStats);
 
-            // Act
-            const damage = player.calculateDamage(simpleEnemy);
+        // Create an instance of Armor and Buffs
+        const armour = new SimpleArmor(5);
+        const buffs = [new BasicBuff(2, 1), new BasicBuff(3, 4)];
 
-            // Assert
-            expect(damage).toBeInstanceOf(Damage);
-            // Add more assertions based on the expected behavior of calculateDamage
-        });
+        // Create a SimpleEnemy instance
+        const simpleEnemy = new SimpleEnemy(armour, buffs);
 
-        it('should calculate damage with zero values', () => {
-            // Arrange
-            const playerInventory = new Inventory({
-                leftHand: { damageModifier: 0 },
-                rightHand: { damageModifier: 0 },
-                head: { damageModifier: 0 },
-                feet: { damageModifier: 0 },
-                chest: { damageModifier: 0 },
-            });
-            const playerStats = new Stats(0);
-            const target = new Target();
-            const player = new Player(playerInventory, playerStats);
 
-            // Act
-            const damage = player.calculateDamage(target);
+        // Act
+        const damage = player.calculateDamage(simpleEnemy);
 
-            // Assert
-            expect(damage).toBeInstanceOf(Damage);
-            // Add more assertions based on the expected behavior of calculateDamage with zero values
-        });
+        // Assert
+        expect(damage.amount).toBe(330);
+        // Add more assertions based on the expected behavior of calculateDamage
+    });
+
+    it('should calculate damage with zero values', () => {
     });
 });

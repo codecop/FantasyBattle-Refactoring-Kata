@@ -23,3 +23,6 @@ OK, das ist gut
 Seufz.
 
 Er kennt den Code ja nicht, also weiß er es nicht. Muss alles pasten.
+
+Expected 5 arguments, got 6 (mit Ring)
+Aber immer wenn ich eine Klasse paste, wird das Ergebnis angepasst. Aber mühsam.
