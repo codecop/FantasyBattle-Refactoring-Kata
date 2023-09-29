@@ -26,3 +26,16 @@ Er kennt den Code ja nicht, also weiß er es nicht. Muss alles pasten.
 
 Expected 5 arguments, got 6 (mit Ring)
 Aber immer wenn ich eine Klasse paste, wird das Ergebnis angepasst. Aber mühsam.
+
+---
+
+Work 1 hour
+Assess 0 (only need 1 test case)
+
+---
+
+20230929 FantasyBattle-Refactoring-Kata
+- mühsam wenn er noch viele andere Klassen braucht. Fantasiert und erfindet.
+  muss alles pasten. Kann auch nichts berechnen.
+- eigentlich nur 1 branch, aber viele dependencies
+- mühsam gewesen, 50%
